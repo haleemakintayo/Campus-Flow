@@ -6,6 +6,7 @@ interface AuthContextType {
   user: User | null;
   loading: boolean;
   login: () => Promise<void>;
+  demoLogin: () => void;
   logout: () => Promise<void>;
 }
 
@@ -17,7 +18,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
+      // If we're using the demo user, don't overwrite it with a null auth state
+      setUser((prevUser) => {
+        if (prevUser && prevUser.uid === 'demo-user') return prevUser;
+        return user;
+      });
       setLoading(false);
     });
     return unsubscribe;
@@ -28,12 +33,38 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     await signInWithPopup(auth, provider);
   };
 
+  const demoLogin = () => {
+    // Set a mock admin user
+    setUser({
+      uid: 'demo-user',
+      displayName: 'Demo Admin',
+      email: 'haleemakintayo@gmail.com',
+      photoURL: 'https://ui-avatars.com/api/?name=Demo+Admin&background=38bdf8&color=fff',
+      emailVerified: true,
+      isAnonymous: false,
+      metadata: {},
+      providerData: [],
+      refreshToken: '',
+      tenantId: null,
+      delete: async () => {},
+      getIdToken: async () => '',
+      getIdTokenResult: async () => ({} as any),
+      reload: async () => {},
+      toJSON: () => ({}),
+      providerId: 'demo'
+    } as any);
+  };
+
   const logout = async () => {
-    await signOut(auth);
+    if (user && user.uid === 'demo-user') {
+      setUser(null);
+    } else {
+      await signOut(auth);
+    }
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, demoLogin, logout }}>
       {children}
     </AuthContext.Provider>
   );

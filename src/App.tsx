@@ -19,7 +19,7 @@ import { seedDatabase } from './seed';
 import { Database } from 'lucide-react';
 
 export default function App() {
-  const { user, loading: authLoading, login, logout } = useAuth();
+  const { user, loading: authLoading, login, demoLogin, logout } = useAuth();
   const [buses, setBuses] = useState<Bus[]>([]);
   const [routes, setRoutes] = useState<Route[]>([]);
   const [selectedRouteId, setSelectedRouteId] = useState<string | null>(null);
@@ -107,6 +107,10 @@ export default function App() {
             <Button onClick={login} className="w-full h-12 text-lg gap-3" size="lg">
               <LogIn size={20} />
               Sign in with Google
+            </Button>
+            <Button onClick={demoLogin} variant="outline" className="w-full h-12 text-md gap-3 border-primary/50 text-foreground hover:bg-primary/10" size="lg">
+              <UserIcon size={20} />
+              Use Demo Account
             </Button>
             <p className="text-[10px] text-center text-muted-foreground uppercase tracking-widest">
               Secure Campus Authentication
