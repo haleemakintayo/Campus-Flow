@@ -1,20 +1,28 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# CampusFlow: Transit Management System
 
-# Run and deploy your AI Studio app
+## Overview
+CampusFlow is a real-time transit management application designed to help university administrators and students track buses, predict crowd capacities, and optimize campus transit routes.
 
-This contains everything you need to run your app locally.
+## Features
+- **Real-Time Bus Tracking**: View the live location, heading, and status of all campus buses on an interactive dark-mode map.
+- **Occupancy Monitoring**: Track how crowded buses are currently and view real-time warnings when capacity limits are approached.
+- **Route Planning**: Search easily for specific routes and visualize the exact stops mapping.
+- **AI-Powered Insights**: (Demo feature utilizing Gemini) Generates crowd predictions and intelligent transit recommendations.
+- **Sleek Interface**: Built with an edge-to-glass, highly customized dashboard using Tailwind CSS and Radix UI primitives.
 
-View your app in AI Studio: https://ai.studio/apps/706b32a8-66fd-4156-b752-4e72fc50b67d
+## Data Model
+- **Routes**: Connect campus locations together (e.g., *Main Campus Loop*, *Outer Campus Express*).
+- **Stops**: Key pickup/drop-off points. Currently includes: *Ago Mini Campus, Mariam, Itamerin, Pepsi, Chips, Konigba*.
+- **Buses**: Vehicles assigned to specific routes with live telemetry (latitude, longitude, occupancy, heading).
 
-## Run Locally
+## Authentication
+By default, the application implements **Firebase Authentication** mapped to a secure profile system. We have additionally included a **"Use Demo Account"** button for evaluators to bypass the Google Login popup and gain full system access seamlessly.
 
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Tech Stack
+- Frontend: React (Vite)
+- Language: TypeScript
+- Core Map: Leaflet (`react-leaflet`)
+- Database: Firebase Firestore (Real-time listeners)
+- Auth: Firebase Authentication
+- UI Components: shadcn/ui, Tailwind CSS
+- Tooling: Lucide React (Icons), Recharts (Analytics graph)
