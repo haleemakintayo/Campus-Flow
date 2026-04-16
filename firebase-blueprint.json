@@ -1,0 +1,59 @@
+{
+  "entities": {
+    "Bus": {
+      "title": "Bus",
+      "description": "An active campus bus",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "routeId": { "type": "string" },
+        "name": { "type": "string" },
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" },
+        "capacity": { "type": "number" },
+        "currentOccupancy": { "type": "number" },
+        "status": { "type": "string", "enum": ["active", "maintenance", "idle"] },
+        "lastUpdated": { "type": "string", "format": "date-time" },
+        "heading": { "type": "number" }
+      },
+      "required": ["id", "routeId", "name", "latitude", "longitude", "capacity", "currentOccupancy", "status", "lastUpdated"]
+    },
+    "Route": {
+      "title": "Route",
+      "description": "A bus route with multiple stops",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "color": { "type": "string" },
+        "stops": {
+          "type": "array",
+          "items": { "$ref": "Stop" }
+        }
+      },
+      "required": ["id", "name", "color", "stops"]
+    },
+    "Stop": {
+      "title": "Stop",
+      "description": "A bus stop location",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" }
+      },
+      "required": ["id", "name", "latitude", "longitude"]
+    }
+  },
+  "firestore": {
+    "/buses/{busId}": {
+      "schema": "Bus",
+      "description": "Real-time bus locations and status"
+    },
+    "/routes/{routeId}": {
+      "schema": "Route",
+      "description": "Bus route definitions"
+    }
+  }
+}

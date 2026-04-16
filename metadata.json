@@ -1,0 +1,6 @@
+{
+  "name": "CampusFlow",
+  "description": "Real-time campus transit management system with live bus tracking, ETA predictions, and rush-hour crowd management.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["Real-time Data", "Map Integration", "Crowd Analytics"]
+}
